@@ -374,10 +374,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 143855985, guid: fb5a1189d4b226a4b82d17fd4fa92499, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 971649438762375924, guid: fb5a1189d4b226a4b82d17fd4fa92499, type: 3}
       propertyPath: m_Name
       value: Protagonist
@@ -420,10 +416,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 971649438762375925, guid: fb5a1189d4b226a4b82d17fd4fa92499, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1533505470188370567, guid: fb5a1189d4b226a4b82d17fd4fa92499, type: 3}
-      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8478871645648404266, guid: fb5a1189d4b226a4b82d17fd4fa92499, type: 3}

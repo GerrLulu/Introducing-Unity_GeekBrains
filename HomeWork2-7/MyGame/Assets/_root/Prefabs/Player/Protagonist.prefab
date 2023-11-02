@@ -505,7 +505,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 971649437907476263}
-  - component: {fileID: 971649437907476256}
   m_Layer: 0
   m_Name: MineSpawn
   m_TagString: Untagged
@@ -528,19 +527,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 971649438762375925}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &971649437907476256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 971649437907476262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6c06df7b517896409dbb5a2bb629a95, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minePrefub: {fileID: 1646946700311360, guid: abbab26d658871944a20071c62234860, type: 3}
 --- !u!1 &971649438622863253
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +557,7 @@ Transform:
   m_GameObject: {fileID: 971649438622863253}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.63, z: -0.041}
+  m_LocalPosition: {x: 0, y: 1.63, z: 0.026}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -658,7 +644,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971649438622863253}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
   m_Name: 
@@ -718,7 +704,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 971649438622863253}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
   m_Name: 
@@ -783,9 +769,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82226bccaacaee74ea468469dcc8225c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _hp: 100
   _speed: 0.1
   _boost: 1.5
   _sensHorizontal: 7
+  _minePrefab: {fileID: 1646946700311360, guid: abbab26d658871944a20071c62234860, type: 3}
+  _spawnPointMine: {fileID: 971649437907476263}
+  _maxCountMine: 3
 --- !u!136 &971649438762375920
 CapsuleCollider:
   m_ObjectHideFlags: 0
