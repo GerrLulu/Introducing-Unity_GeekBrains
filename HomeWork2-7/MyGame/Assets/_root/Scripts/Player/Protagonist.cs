@@ -18,6 +18,8 @@ namespace Player
         [SerializeField] private GameObject _minePrefab;
         [SerializeField] private Transform _spawnPointMine;
 
+        private bool _isHaveBlueCard;
+
         //[SerializeField] private float _acceleration = 0.1f;
         //[SerializeField] private float _deceleration = 0.5f;
         //private int _velocityHash;
@@ -63,6 +65,11 @@ namespace Player
             //_paused = false;
 
             //_audioShoot = GetComponent<AudioSource>();
+        }
+
+        private void Start()
+        {
+            _isHaveBlueCard = false;
         }
 
         private void Update()
