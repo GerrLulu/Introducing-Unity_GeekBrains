@@ -1,3 +1,4 @@
+using Doors;
 using MineItem;
 using UnityEngine;
 
@@ -12,13 +13,15 @@ namespace Player
         [SerializeField] private float _sensHorizontal = 7f;
         private Vector3 _direction;
         private bool _isBoost;
-        private float _velocity = 1.0f;
         private Rigidbody _rb;
 
         [SerializeField] private GameObject _minePrefab;
         [SerializeField] private Transform _spawnPointMine;
 
         private bool _isHaveBlueCard;
+
+        public bool IsHaveBlueCard { get { return _isHaveBlueCard; } }
+
 
         //[SerializeField] private float _acceleration = 0.1f;
         //[SerializeField] private float _deceleration = 0.5f;
@@ -70,6 +73,8 @@ namespace Player
         private void Start()
         {
             _isHaveBlueCard = false;
+
+            BlueCard.GiveBlueCard += GetBlueCard;
         }
 
         private void Update()
@@ -138,7 +143,7 @@ namespace Player
             else
                 s = _speed;
 
-            transform.Translate(_direction.normalized * s * _velocity);
+            transform.Translate(_direction.normalized * s);
         }
 
         private void SpawnMine()
@@ -149,12 +154,20 @@ namespace Player
         public void MineHit(/*float forse, */float damage)
         {
             _hp = _hp - damage;
+            Debug.Log($"{gameObject.name} HP: {_hp}");
             //_rb.AddForce(forse, forse, forse, ForceMode.Impulse);
             if (_hp <= 0)
             {
                 Destroy(gameObject);
                 //_animator.SetTrigger("Die");
             }
+        }
+
+        private void GetBlueCard()
+        {
+            _isHaveBlueCard = true;
+
+            Debug.Log($"Get blue card: {_isHaveBlueCard}");
         }
 
         //public void Hit(float damage)
@@ -232,5 +245,11 @@ namespace Player
         //{
         //    Mixer.audioMixer.SetFloat("MasterVolume", Mathf.Lerp(-80, 0, volume));
         //}
+
+
+        private void OnDestroy()
+        {
+            BlueCard.GiveBlueCard -= GetBlueCard;
+        }
     }
 }

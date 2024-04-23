@@ -1,10 +1,13 @@
+using System;
 using UnityEngine;
 
 namespace Doors
 {
-    public class DoorCardsBlue : MonoBehaviour
+    public class BlueCard : MonoBehaviour
     {
         [SerializeField] private float _rotationalSpeed = 45.0f;
+
+        public static Action GiveBlueCard;
 
 
         private void Update()
@@ -12,11 +15,14 @@ namespace Doors
             transform.Rotate(Vector3.up, _rotationalSpeed * Time.deltaTime);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            if (collision.collider.tag == "Player")
+            if (other.tag == "Player")
             {
                 gameObject.SetActive(false);
+
+                if (GiveBlueCard != null)
+                    GiveBlueCard.Invoke();
             }
         }
     }

@@ -42,6 +42,8 @@ namespace Enemies
         public void MineHit(/*float forse,*/ float damage)
         {
             _hp = _hp - damage;
+            Debug.Log($"{gameObject.name} HP: {_hp}");
+
             //rb.AddForce(forse, forse, forse, ForceMode.Impulse);
             if (_hp <= 0)
                 Destroy(gameObject);
