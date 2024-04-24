@@ -7,12 +7,12 @@ namespace Player
     {
         [SerializeField] private GameObject playerPrefab;
 
-        public static Action PlayerSpawned;
+        //public static Action PlayerSpawned;
 
         private void Awake()
         {
             Instantiate(playerPrefab, transform.position, Quaternion.identity);
-            PlayerSpawned.Invoke();
+            //PlayerSpawned.Invoke();
         }
     }
 }
