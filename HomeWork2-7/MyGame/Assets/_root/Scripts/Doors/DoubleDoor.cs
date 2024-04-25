@@ -18,8 +18,6 @@ namespace Doors
 
         private void Start()
         {
-            //PlayerSpawn.PlayerSpawned += 
-
             _positionCloseLeftDoor = _leftDoor.transform.localPosition;
             _positionCloseRightDoor = _rightDoor.transform.localPosition;
 

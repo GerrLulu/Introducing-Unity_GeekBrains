@@ -806,9 +806,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8429865231615740692}
   - component: {fileID: 5250309412342842399}
-  - component: {fileID: 3966329156247408579}
   - component: {fileID: 3608963145170388864}
   - component: {fileID: 316819992006476373}
+  - component: {fileID: 3966329156247408579}
   - component: {fileID: 1089718651920286347}
   - component: {fileID: -2556472342054816683}
   m_Layer: 0
@@ -842,9 +842,9 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4803014352389650695}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.35
+  m_Radius: 0.3
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -857,19 +857,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3966329156247408579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4803014352389650695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f140496dcba0d8f4c8e97baaf109afcf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hp: 100
 --- !u!136 &3608963145170388864
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -920,6 +907,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &3966329156247408579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4803014352389650695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f140496dcba0d8f4c8e97baaf109afcf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 100
+  _wayPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!95 &1089718651920286347
 Animator:
   serializedVersion: 5

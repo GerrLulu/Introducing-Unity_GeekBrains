@@ -9,7 +9,6 @@ namespace Turret
         [SerializeField] private Protagonist _player;
         [SerializeField] private float _rotationIdleSpeed;
         [SerializeField] private float _rotationAtackSpeed;
-        //[SerializeField] private float _radiusShoot = 13f;
         [SerializeField] private float _hp = 100f;
 
         //[SerializeField] private float _timeReload = 2f;

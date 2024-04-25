@@ -723,9 +723,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 971649438762375925}
-  - component: {fileID: 971649438762375926}
   - component: {fileID: 971649438762375920}
   - component: {fileID: 971649438762375927}
+  - component: {fileID: 971649438762375926}
   - component: {fileID: 8561457903786164588}
   - component: {fileID: 837248191677973519}
   m_Layer: 0
@@ -757,25 +757,6 @@ Transform:
   - {fileID: 1168109947938641796}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &971649438762375926
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 971649438762375924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82226bccaacaee74ea468469dcc8225c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hp: 100
-  _speed: 0.1
-  _boost: 1.5
-  _sensHorizontal: 7
-  _minePrefab: {fileID: 1646946700311360, guid: abbab26d658871944a20071c62234860, type: 3}
-  _spawnPointMine: {fileID: 971649437907476263}
-  _maxCountMine: 3
 --- !u!136 &971649438762375920
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -826,6 +807,24 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &971649438762375926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971649438762375924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82226bccaacaee74ea468469dcc8225c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _hp: 100
+  _speed: 0.1
+  _boost: 1.5
+  _sensHorizontal: 7
+  _minePrefab: {fileID: 1646946700311360, guid: abbab26d658871944a20071c62234860, type: 3}
+  _spawnPointMine: {fileID: 971649437907476263}
 --- !u!95 &8561457903786164588
 Animator:
   serializedVersion: 5
