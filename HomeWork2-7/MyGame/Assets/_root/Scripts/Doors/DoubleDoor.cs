@@ -35,8 +35,6 @@ namespace Doors
 
                 OpenDoor();
             }
-            else
-                Debug.Log("Not opened");
         }
 
         private void OnTriggerExit(Collider other)

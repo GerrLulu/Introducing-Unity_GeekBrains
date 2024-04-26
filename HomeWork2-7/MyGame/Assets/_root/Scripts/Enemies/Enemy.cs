@@ -1,10 +1,11 @@
+using Bullet;
 using MineItem;
 using UnityEngine;
 using UnityEngine.AI;
 
 namespace Enemies
 {
-    public class Enemy : MonoBehaviour, IMineExplosion/*, BulletDamage, TrapDamage*/
+    public class Enemy : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage*/
     {
         [SerializeField] private float _hp = 100f;
         [SerializeField] private Transform[] _wayPoints;
@@ -39,22 +40,23 @@ namespace Enemies
         }
 
 
+        public void Hit(float damage)
+        {
+            _hp = _hp - damage;
+            Debug.Log($"{gameObject.name} HP: {_hp}");
+            //if (_hp <= 0)
+            //    gameObject.SetActive(false);
+        }
+
         public void MineHit(/*float forse,*/ float damage)
         {
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");
 
             //rb.AddForce(forse, forse, forse, ForceMode.Impulse);
-            if (_hp <= 0)
-                Destroy(gameObject);
+            //if (_hp <= 0)
+            //    Destroy(gameObject);
         }
-
-        //public void Hit(float damage)
-        //{
-        //    _hp = _hp - damage;
-        //    if (_hp <= 0)
-        //        gameObject.SetActive(false);
-        //}
 
         //public void TrapHit(float damage)
         //{

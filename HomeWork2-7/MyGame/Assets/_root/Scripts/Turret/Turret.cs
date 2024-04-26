@@ -1,30 +1,34 @@
+using Bullet;
 using Player;
+using System.Collections;
 using UnityEngine;
 
 namespace Turret
 {
-    public class Turret : MonoBehaviour//, BulletDamage
+    public class Turret : MonoBehaviour, IBulletDamage
     {
-        [SerializeField] private Transform _neckTurret;
-        [SerializeField] private Protagonist _player;
+        [SerializeField] private float _hp = 100f;
         [SerializeField] private float _rotationIdleSpeed;
         [SerializeField] private float _rotationAtackSpeed;
-        [SerializeField] private float _hp = 100f;
+        [SerializeField] private float _timeReload = 5f;
+        [SerializeField] private float _timeBetweenShots = 0.5f;
+        [SerializeField] private int _countBullet = 5;
+        [SerializeField] private Transform _neckTurret;
+        [SerializeField] private Transform _spawnBullets;
+        [SerializeField] private Protagonist _player;
+        [SerializeField] GameObject _bulletPrefub;
 
-        //[SerializeField] private float _timeReload = 2f;
-        //[SerializeField] GameObject _bulletPrefub;
-        //[SerializeField] Transform _spawnBullet;
-        //[SerializeField] private int _countBullet = 5;
-
-        private Transform _target;
         private bool _isIdle;
-        //private bool _isShootBullet = true;
+        private bool _isShoot = true;
+        private Transform _target;
 
 
         private void Start()
         {
             _target = _player.transform;
             _isIdle = true;
+
+            StartCoroutine((IEnumerator)Shooting(_timeBetweenShots, _timeReload));
 
             //StartCoroutine((IEnumerator)Reload(_timeReload));
         }
@@ -39,9 +43,6 @@ namespace Turret
             {
                 Atack();
             }
-
-            //if (_isShootBullet)
-            //    SpawnBullet();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -49,7 +50,6 @@ namespace Turret
             if(other.tag == "Player")
             {
                 _isIdle = false;
-                Debug.Log(_isIdle);
             }
         }
 
@@ -58,7 +58,6 @@ namespace Turret
             if (other.tag == "Player")
             {
                 _isIdle = true;
-                Debug.Log(_isIdle);
             }
         }
 
@@ -66,6 +65,8 @@ namespace Turret
         private void Patrol()
         {
             _neckTurret.Rotate(Vector3.up, _rotationIdleSpeed * Time.deltaTime);
+
+            StopCoroutine((IEnumerator)Shooting(_timeBetweenShots, _timeReload));
         }
 
         private void Atack()
@@ -76,14 +77,46 @@ namespace Turret
                 _rotationAtackSpeed * Time.deltaTime, 0f);
 
             _neckTurret.rotation = Quaternion.LookRotation(stepDir);
+
+            //StartCoroutine((IEnumerator)Shooting(_timeBetweenShots, _timeReload));
+
+            //Shoot();
         }
 
         public void Hit(float damage)
         {
             _hp = _hp - damage;
-            if (_hp <= 0)
-                Destroy(gameObject);
+            Debug.Log($"{gameObject.name} HP: {_hp}");
+            //if (_hp <= 0)
+            //    Destroy(gameObject);
         }
+
+        private IEnumerable Shooting(float timeBetweenShots, float timeReload)
+        {
+            int countBullet = _countBullet;
+            if(_isIdle)
+            {
+                while (countBullet > 0)
+                {
+                    Instantiate(_bulletPrefub, _spawnBullets.position, _spawnBullets.rotation);
+                    _countBullet--;
+                    new WaitForSeconds(timeBetweenShots);
+
+                    //if (countBullet == 0)
+                    //{
+                    //    new WaitForSeconds(timeReload);
+                    //    countBullet = _countBullet;
+                    //}
+                }
+            }
+
+            yield return new WaitForSeconds (timeReload);
+        }
+
+        //private void Shoot()
+        //{
+        //    Instantiate(_bulletPrefub, _spawnBullets.position, _spawnBullets.rotation);
+        //}
 
         //private IEnumerable Reload(float _timeReload)
         //{
@@ -91,16 +124,10 @@ namespace Turret
         //    while (_countBullet > 0)
         //    {
         //        _countBullet--;
-        //        _isShootBullet = true;
+        //        //_isShoot = true;
 
         //        yield return new WaitForSeconds(_timeReload);
         //    }
-        //}
-
-        //private void SpawnBullet()
-        //{
-        //    GameObject bullet = GameObject.Instantiate(_bulletPrefub, _spawnBullet.position, _spawnBullet.rotation);
-        //    _isShootBullet = false;
         //}
     }
 }

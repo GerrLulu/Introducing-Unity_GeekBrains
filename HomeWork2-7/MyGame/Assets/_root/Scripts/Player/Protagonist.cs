@@ -1,42 +1,36 @@
+using Bullet;
 using Doors;
 using MineItem;
 using UnityEngine;
 
 namespace Player
 {
-    public class Protagonist : MonoBehaviour, IMineExplosion/*, BulletDamage, TrapDamage, ForseHeal*/
+    public class Protagonist : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage, ForseHeal*/
     {
         [SerializeField] private float _hp = 100f;
-
         [SerializeField] private float _speed = 0.1f;
         [SerializeField] private float _boost = 1.5f;
         [SerializeField] private float _sensHorizontal = 7f;
-        private Vector3 _direction;
-        private bool _isBoost;
-        private Rigidbody _rb;
-
+        [SerializeField] private float _forseJump = 300f;
+        [SerializeField] private GameObject _bulletPrefub;
         [SerializeField] private GameObject _minePrefab;
+        [SerializeField] private Transform _spawnBullet;
         [SerializeField] private Transform _spawnPointMine;
 
+        private Vector3 _direction;
+        private Rigidbody _rb;
+        private bool _isBoost;
+        private bool _isGround;
         private bool _isHaveBlueCard;
+        private GameObject _bullet;
 
         public bool IsHaveBlueCard { get { return _isHaveBlueCard; } }
-
 
         //[SerializeField] private float _acceleration = 0.1f;
         //[SerializeField] private float _deceleration = 0.5f;
         //private int _velocityHash;
 
-        //[SerializeField] private float _forseJump = 300f;
-
-
-        //private bool _isGround;
-
         //Animator _animator;
-
-        //[SerializeField] private Transform _spawnBullet;
-        //[SerializeField] private GameObject _bulletPrefub;
-        //private GameObject _bullet;
 
         //[SerializeField] private Slider _sliderHP;
         //[SerializeField] private GameObject _panelHP;
@@ -56,11 +50,10 @@ namespace Player
             GUI.EndClip();
         }*/
 
+
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
-
-            //_isGround = true;
 
             //_animator = GetComponent<Animator>();
             //_velocityHash = Animator.StringToHash("Velocity");
@@ -72,6 +65,7 @@ namespace Player
 
         private void Start()
         {
+            _isGround = true;
             _isHaveBlueCard = false;
 
             BlueCard.GiveBlueCard += GetBlueCard;
@@ -85,8 +79,14 @@ namespace Player
 
             transform.Rotate(0, Input.GetAxis("Mouse X") * _sensHorizontal, 0);
 
+            if (Input.GetButtonDown("Jump") && _isGround)
+                Jump();
+
             if (Input.GetButtonDown("Put mine"))
                 SpawnMine();
+
+            if (Input.GetButtonDown("Fire1"))
+                Shoot();
 
             //if (_isBoost && _velocity <= 1.0f)
             //    _velocity += Time.deltaTime * _acceleration;
@@ -101,20 +101,9 @@ namespace Player
             //if (_direction == Vector3.zero)
             //{
             //    _animator.SetBool("IsMove", false);
-
-            //    if (Input.GetButtonDown("Fire1"))
-            //        _animator.SetTrigger("Shoot");
             //}
             //else
             //    _animator.SetBool("IsMove", true);
-
-
-            //if (Input.GetButtonDown("Jump") && _isGround)
-            //{
-            //    _rb.AddForce(new Vector3(0, _forseJump, 0), ForceMode.Impulse);
-            //    _animator.SetBool("IsJump", true);
-            //    _isGround = false;
-            //}
 
             //_sliderHP.value = _hp;
 
@@ -133,6 +122,15 @@ namespace Player
             Move();
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (collision.collider.tag == "Ground")
+            {
+                //_animator.SetBool("IsJump", false);
+                _isGround = true;
+            }
+        }
+
 
         private void Move()
         {
@@ -146,9 +144,30 @@ namespace Player
             transform.Translate(_direction.normalized * s);
         }
 
+        private void Jump()
+        {
+            _rb.AddForce(new Vector3(0, _forseJump, 0), ForceMode.Impulse);
+            //_animator.SetBool("IsJump", true);
+            _isGround = false;
+        }
+
+        private void Shoot()
+        {
+            _bullet = Instantiate(_bulletPrefub, _spawnBullet.position, _spawnBullet.rotation);
+            //_animator.SetTrigger("Shoot");
+        }
+
         private void SpawnMine()
         {
             Instantiate(_minePrefab, _spawnPointMine.position, _spawnPointMine.rotation);
+        }
+
+        public void Hit(float damage)
+        {
+            _hp = _hp - damage;
+            Debug.Log($"{gameObject.name} HP: {_hp}");
+            //if (_hp <= 0)
+            //    _animator.SetTrigger("Die");
         }
 
         public void MineHit(/*float forse, */float damage)
@@ -156,11 +175,11 @@ namespace Player
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");
             //_rb.AddForce(forse, forse, forse, ForceMode.Impulse);
-            if (_hp <= 0)
-            {
-                Destroy(gameObject);
-                //_animator.SetTrigger("Die");
-            }
+            //if (_hp <= 0)
+            //{
+            //    Destroy(gameObject);
+            //    //_animator.SetTrigger("Die");
+            //}
         }
 
         private void GetBlueCard()
@@ -169,13 +188,6 @@ namespace Player
 
             Debug.Log($"Get blue card: {_isHaveBlueCard}");
         }
-
-        //public void Hit(float damage)
-        //{
-        //    _hp = _hp - damage;
-        //    if (_hp <= 0)
-        //        _animator.SetTrigger("Die");
-        //}
 
         //public void TrapHit(float damage)
         //{
@@ -189,23 +201,6 @@ namespace Player
         //    this._hp += _hp;
         //    if (this._hp > 100)
         //        this._hp = 100;
-        //}
-
-        //private void OnCollisionEnter(Collision collision)
-        //{
-        //    if(collision.collider.tag == "Ground")
-        //    {
-        //        _animator.SetBool("IsJump", false);
-        //        _isGround = true;
-        //    }
-        //}
-
-
-        //private void SpawnBullet()
-        //{
-        //    _audioShoot.Play();
-
-        //    _bullet = Instantiate(_bulletPrefub, _spawnBullet.position, _spawnBullet.rotation);
         //}
 
         //public void RestartGame()
