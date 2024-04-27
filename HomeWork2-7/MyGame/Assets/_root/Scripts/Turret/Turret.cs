@@ -28,7 +28,7 @@ namespace Turret
             _target = _player.transform;
             _isIdle = true;
 
-            StartCoroutine((IEnumerator)Shooting(_timeBetweenShots, _timeReload));
+            //StartCoroutine(Shooting(_timeBetweenShots, _timeReload));
 
             //StartCoroutine((IEnumerator)Reload(_timeReload));
         }
@@ -66,7 +66,7 @@ namespace Turret
         {
             _neckTurret.Rotate(Vector3.up, _rotationIdleSpeed * Time.deltaTime);
 
-            StopCoroutine((IEnumerator)Shooting(_timeBetweenShots, _timeReload));
+            //StopCoroutine((IEnumerator)Shooting(_timeBetweenShots, _timeReload));
         }
 
         private void Atack()
@@ -78,7 +78,7 @@ namespace Turret
 
             _neckTurret.rotation = Quaternion.LookRotation(stepDir);
 
-            //StartCoroutine((IEnumerator)Shooting(_timeBetweenShots, _timeReload));
+            //StartCoroutine(Shooting(_timeBetweenShots, _timeReload));
 
             //Shoot();
         }
@@ -91,10 +91,11 @@ namespace Turret
             //    Destroy(gameObject);
         }
 
-        private IEnumerable Shooting(float timeBetweenShots, float timeReload)
+        private IEnumerator Shooting(float timeBetweenShots, float timeReload)
         {
+            Debug.Log("Start");
             int countBullet = _countBullet;
-            if(_isIdle)
+            if(_isIdle == false)
             {
                 while (countBullet > 0)
                 {
@@ -110,6 +111,7 @@ namespace Turret
                 }
             }
 
+            Debug.Log("End");
             yield return new WaitForSeconds (timeReload);
         }
 
