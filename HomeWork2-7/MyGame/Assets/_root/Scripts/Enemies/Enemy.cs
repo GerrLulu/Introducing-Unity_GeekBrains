@@ -1,5 +1,6 @@
 using Bullet;
 using MineItem;
+using Player;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -8,11 +9,16 @@ namespace Enemies
     public class Enemy : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage*/
     {
         [SerializeField] private float _hp = 100f;
+        [SerializeField] private float _distanceHaunt = 7f;
         [SerializeField] private Transform[] _wayPoints;
+        [SerializeField] private Transform _eyePosition;
+        [SerializeField] private Protagonist _protagonist;
+        [SerializeField] private LayerMask _layerMask;
 
+        private int m_CurrentWaypointIndex;
         private Rigidbody _rb;
         private NavMeshAgent _agent;
-        private int m_CurrentWaypointIndex;
+        private Ray _rayToPlayer;
 
         //Animator animator;
 
@@ -28,6 +34,15 @@ namespace Enemies
         private void Start()
         {
             _agent.SetDestination(_wayPoints[0].position);
+        }
+
+        private void Update()
+        {
+            var direction = _protagonist.transform.position - _eyePosition.position;
+            direction = new Vector3(direction.x, direction.y + 1.7f, direction.z);
+            _rayToPlayer = new Ray(_eyePosition.position, direction);
+            Debug.DrawRay(_eyePosition.position, direction, Color.red)
+
         }
 
         private void FixedUpdate()

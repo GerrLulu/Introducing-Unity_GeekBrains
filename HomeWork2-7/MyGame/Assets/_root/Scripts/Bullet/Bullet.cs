@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 namespace Bullet
@@ -15,8 +14,8 @@ namespace Bullet
 
         void FixedUpdate()
         {
-            transform.Translate(transform.forward * Time.deltaTime * _speed);
-            //Destroy(gameObject, lifeTime);
+            transform.Translate(transform.right * Time.deltaTime * _speed);
+            Destroy(gameObject, _lifeTime);
         }
 
         private void OnTriggerEnter(Collider other)
@@ -28,12 +27,12 @@ namespace Bullet
                 if (obj != null)
                 {
                     obj.Hit(_damage);
+                    Debug.Log(obj.ToString());
                     Destroy(gameObject);
                 }
             }
 
             //StartCoroutine(LightFlash());
-            Destroy(gameObject, _lifeTime);
         }
 
         //private IEnumerator LightFlash()

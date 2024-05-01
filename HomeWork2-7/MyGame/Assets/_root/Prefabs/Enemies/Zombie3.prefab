@@ -920,6 +920,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp: 100
+  _distanceHaunt: 7
   _wayPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -930,6 +931,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  _eyePosition: {fileID: 6602960458262397923}
+  _protagonist: {fileID: 0}
 --- !u!95 &1089718651920286347
 Animator:
   serializedVersion: 5
@@ -1565,6 +1568,7 @@ Transform:
   - {fileID: 2765156980419097307}
   - {fileID: 5388540361055046446}
   - {fileID: 2470954448694881078}
+  - {fileID: 6602960458262397923}
   m_Father: {fileID: 492292907688170579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7315767739161224810
@@ -2077,4 +2081,35 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 451042917812744695}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9124122158212541896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6602960458262397923}
+  m_Layer: 0
+  m_Name: YeysPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6602960458262397923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9124122158212541896}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.49999994, y: 0.50000006, z: 0.5, w: 0.5}
+  m_LocalPosition: {x: -0.05, y: 0.142, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 956512202495264301}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

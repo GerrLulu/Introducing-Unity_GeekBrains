@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3497906854841018019}
   - component: {fileID: 576243565981085466}
   - component: {fileID: 3924286846554091659}
-  - component: {fileID: 2543106325882410550}
+  - component: {fileID: 7190575041686721085}
   - component: {fileID: -8402343950953988021}
   m_Layer: 0
   m_Name: Bullet
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2543106325882410550
-SphereCollider:
+--- !u!136 &7190575041686721085
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,8 +103,10 @@ SphereCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
+  serializedVersion: 2
   m_Radius: 0.5
+  m_Height: 1
+  m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-8402343950953988021
 MonoBehaviour:
@@ -120,3 +122,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 1
   _damage: 10
+  _lifeTime: 10
