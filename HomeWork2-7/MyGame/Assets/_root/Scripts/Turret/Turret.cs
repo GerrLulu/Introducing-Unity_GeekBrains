@@ -16,7 +16,6 @@ namespace Turret
         [SerializeField] private Transform _spawnBullets;
         [SerializeField] private Protagonist _player;
         [SerializeField] private GameObject _bulletPrefab;
-        [SerializeField] private LayerMask _layerMask;
 
         private bool _isIdle;
         private bool _isShoot;
@@ -24,6 +23,7 @@ namespace Turret
         private float _distanceFire;
         private Transform _target;
         private Ray _directionFire;
+        private RaycastHit _hit;
 
         public float Hp
         {
@@ -35,23 +35,26 @@ namespace Turret
         private void Start()
         {
             _isIdle = true;
-            _isShoot = false;
             _target = _player.transform;
             _currentBullets = _countBullets;
             _distanceFire = GetComponent<SphereCollider>().radius - 1.8f;
+
+            StartCoroutine(Shooting());
         }
 
         private void Update()
         {
             _directionFire = new Ray(_spawnBullets.position, _spawnBullets.forward);
 
-            var rayCast = Physics.Raycast(_directionFire, _distanceFire, _layerMask);
+            var rayCast = Physics.Raycast(_directionFire, out _hit, _distanceFire);
 
             if (rayCast)
-                _isShoot = true;
-            else
-                _isShoot = false;
+            {
+                if(_hit.collider.tag == "Player" && _isShoot)
+                    Fire();
+            }
         }
+
 
         private void FixedUpdate()
         {
@@ -68,26 +71,17 @@ namespace Turret
         private void OnTriggerEnter(Collider other)
         {
             if(other.tag == "Player")
-            {
                 _isIdle = false;
-                StartCoroutine(Shooting());
-            }
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.tag == "Player")
-            {
                 _isIdle = true;
-                StopCoroutine(Shooting());
-            }
         }
 
 
-        private void Patrol()
-        {
-            _neckTurret.Rotate(Vector3.up, _rotationIdleSpeed * Time.deltaTime);
-        }
+        private void Patrol() => _neckTurret.Rotate(Vector3.up, _rotationIdleSpeed * Time.deltaTime);
 
         private void Atack()
         {
@@ -99,6 +93,13 @@ namespace Turret
             _neckTurret.rotation = Quaternion.LookRotation(stepDir);
         }
 
+        private void Fire()
+        {
+            Instantiate(_bulletPrefab, _spawnBullets.position, _spawnBullets.rotation);
+            
+            _isShoot = false;
+        }
+
         private IEnumerator Shooting()
         {
             while (true)
@@ -107,12 +108,11 @@ namespace Turret
                 {
                     yield return new WaitForSeconds(_timeReload);
                     _currentBullets = _countBullets;
-                    Debug.Log("Shoot");
                 }
                 else
                 {
-                    Instantiate(_bulletPrefab, _spawnBullets.position, _spawnBullets.rotation);
                     _currentBullets--;
+                    _isShoot = true;
                     yield return new WaitForSeconds(_timeBetweenShots);
                 }
             }

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 997
   m_ShowMode: 4
-  m_Title: Console
+  m_Title: Scene
   m_RootView: {fileID: 12}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 55
+  controlID: 20
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -247,8 +247,8 @@ MonoBehaviour:
     y: 0
     width: 335
     height: 947
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -509,7 +509,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/_root/Prefabs/Enemies
+    - Assets/_root/Scripts/Turret
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
@@ -517,16 +517,16 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/_root/Prefabs/Enemies
+  - Assets/_root/Scripts/Turret
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\Artyom\Desktop\Introducing-Unity_GeekBrains\HomeWork2-7\MyGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 60}
-    m_SelectedIDs: 72700000
-    m_LastClickedID: 28786
-    m_ExpandedIDs: 0000000036700000387000003a7000005870000000ca9a3b
+    scrollPos: {x: 0, y: 162}
+    m_SelectedIDs: 6a700000
+    m_LastClickedID: 28778
+    m_ExpandedIDs: 000000003a7000003c7000003e7000005c70000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -554,7 +554,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000036700000387000003a700000
+    m_ExpandedIDs: 000000003a7000003c7000003e700000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -694,9 +694,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 6aecffff
-      m_LastClickedID: -5014
-      m_ExpandedIDs: 8af7ffff54faffff58faffffa4faffffa8faffffacfaffffd0faffffe0faffffc0690000
+      m_SelectedIDs: eaf9ffff
+      m_LastClickedID: -1558
+      m_ExpandedIDs: e0faffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1102,9 +1102,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 5.9987373, y: -7.51326, z: 1.8198495}
+    m_Target: {x: 16.72418, y: -3.3195393, z: -0.7983416}
     speed: 2
-    m_Value: {x: 5.9987373, y: -7.51326, z: 1.8198495}
+    m_Value: {x: 16.72418, y: -3.3195393, z: -0.7983416}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -1150,9 +1150,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.17606774, y: -0.81042975, z: 0.3055544, w: 0.46834788}
+    m_Target: {x: 0.035074644, y: -0.9332011, z: 0.3452522, w: 0.09599621}
     speed: 2
-    m_Value: {x: 0.17648093, y: -0.8095202, z: 0.30521223, w: 0.46944347}
+    m_Value: {x: 0.03506572, y: -0.9329637, z: 0.3451644, w: 0.09597179}
   m_Size:
     m_Target: 10
     speed: 2

@@ -41,7 +41,7 @@ namespace Enemies
             var direction = _protagonist.transform.position - _eyePosition.position;
             direction = new Vector3(direction.x, direction.y + 1.7f, direction.z);
             _rayToPlayer = new Ray(_eyePosition.position, direction);
-            Debug.DrawRay(_eyePosition.position, direction, Color.red)
+            Debug.DrawRay(_eyePosition.position, direction, Color.red);
 
         }
 
