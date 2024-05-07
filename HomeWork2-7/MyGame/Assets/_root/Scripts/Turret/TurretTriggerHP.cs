@@ -1,9 +1,10 @@
 ﻿using Bullet;
+using MineItem;
 using UnityEngine;
 
 namespace Turret
 {
-    public class TurretTriggerHP : MonoBehaviour, IBulletDamage
+    public class TurretTriggerHP : MonoBehaviour, IBulletDamage, IMineExplosion
     {
         private Turret _turret;
 
@@ -20,6 +21,12 @@ namespace Turret
             Debug.Log($"{_turret.name} HP: {_turret.Hp}");
             //if (_hp <= 0)
             //    Destroy(gameObject);
+        }
+
+        public void MineHit(float damage, float force, Vector3 position)
+        {
+            _turret.Hp = _turret.Hp - damage;
+            Debug.Log($"{_turret.name} HP: {_turret.Hp}");
         }
     }
 }

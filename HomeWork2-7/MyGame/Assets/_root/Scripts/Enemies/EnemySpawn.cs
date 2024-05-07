@@ -4,7 +4,7 @@ namespace Enemies
 {
     public class EnemySpawn : MonoBehaviour
     {
-        [SerializeField] private GameObject enemyPrefab;
+        [SerializeField] private GameObject _enemyPrefab;
         //[SerializeField] int maxCountEnemy = 3;
 
         //private GameObject enemy;
@@ -15,7 +15,7 @@ namespace Enemies
 
         private void Start()
         {
-            Instantiate(enemyPrefab, transform.position, Quaternion.identity);
+            Instantiate(_enemyPrefab, transform.position, Quaternion.identity);
         }
 
         //private void Update()

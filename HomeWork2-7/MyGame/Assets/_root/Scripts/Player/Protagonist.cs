@@ -11,7 +11,7 @@ namespace Player
         [SerializeField] private float _speed = 0.1f;
         [SerializeField] private float _boost = 1.5f;
         [SerializeField] private float _sensHorizontal = 7f;
-        [SerializeField] private float _forseJump = 300f;
+        [SerializeField] private float _forceJump = 300f;
         [SerializeField] private GameObject _bulletPrefub;
         [SerializeField] private GameObject _minePrefab;
         [SerializeField] private Transform _spawnBullet;
@@ -22,7 +22,6 @@ namespace Player
         private bool _isBoost;
         private bool _isGround;
         private bool _isHaveBlueCard;
-        private GameObject _bullet;
 
         public bool IsHaveBlueCard { get { return _isHaveBlueCard; } }
 
@@ -146,14 +145,14 @@ namespace Player
 
         private void Jump()
         {
-            _rb.AddForce(new Vector3(0, _forseJump, 0), ForceMode.Impulse);
+            _rb.AddForce(new Vector3(0, _forceJump, 0), ForceMode.Impulse);
             //_animator.SetBool("IsJump", true);
             _isGround = false;
         }
 
         private void Shoot()
         {
-            _bullet = Instantiate(_bulletPrefub, _spawnBullet.position, _spawnBullet.rotation);
+            Instantiate(_bulletPrefub, _spawnBullet.position, _spawnBullet.rotation);
             //_animator.SetTrigger("Shoot");
         }
 
@@ -170,11 +169,15 @@ namespace Player
             //    _animator.SetTrigger("Die");
         }
 
-        public void MineHit(/*float forse, */float damage)
+        public void MineHit(float damage, float force, Vector3 positionMine)
         {
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");
-            //_rb.AddForce(forse, forse, forse, ForceMode.Impulse);
+            
+            var positionImpulse = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            Vector3 direction = positionImpulse - positionMine;
+            _rb.AddForce(direction.normalized * force, ForceMode.Impulse);
+
             //if (_hp <= 0)
             //{
             //    Destroy(gameObject);

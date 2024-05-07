@@ -9,7 +9,7 @@ namespace Enemies
     public class Enemy : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage*/
     {
         [SerializeField] private float _hp = 100f;
-        [SerializeField] private float _distanceHaunt = 7f;
+        [SerializeField] private float _huntingDistance = 7f;
         [SerializeField] private Transform[] _wayPoints;
         [SerializeField] private Transform _eyePosition;
         [SerializeField] private Protagonist _protagonist;
@@ -36,16 +36,34 @@ namespace Enemies
             _agent.SetDestination(_wayPoints[0].position);
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
-            var direction = _protagonist.transform.position - _eyePosition.position;
+            RaycastHit hit;
+
+            Vector3 direction = _protagonist.transform.position - _eyePosition.position;
             direction = new Vector3(direction.x, direction.y + 1.7f, direction.z);
             _rayToPlayer = new Ray(_eyePosition.position, direction);
-            Debug.DrawRay(_eyePosition.position, direction, Color.red);
+            Physics.Raycast(_rayToPlayer, out hit);
 
+            
+
+            if (hit.collider != null)
+            {
+                if (hit.distance <= _huntingDistance)
+                {
+                    _agent.SetDestination(_protagonist.transform.position);
+                    Debug.DrawRay(_eyePosition.position, direction, Color.red);
+                }
+                else
+                {
+                    Patrol();
+                    Debug.DrawRay(_eyePosition.position, direction, Color.green);
+                }
+            }
         }
 
-        private void FixedUpdate()
+
+        private void Patrol()
         {
             if (_agent.remainingDistance < _agent.stoppingDistance)
             {
@@ -53,7 +71,6 @@ namespace Enemies
                 _agent.SetDestination(_wayPoints[m_CurrentWaypointIndex].position);
             }
         }
-
 
         public void Hit(float damage)
         {
@@ -63,12 +80,15 @@ namespace Enemies
             //    gameObject.SetActive(false);
         }
 
-        public void MineHit(/*float forse,*/ float damage)
+        public void MineHit(float damage, float force, Vector3 positionMine)
         {
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");
 
-            //rb.AddForce(forse, forse, forse, ForceMode.Impulse);
+            var positionImpulse = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
+            Vector3 direction = positionImpulse - positionMine;
+            _rb.AddForce(direction.normalized * force, ForceMode.Impulse);
+
             //if (_hp <= 0)
             //    Destroy(gameObject);
         }

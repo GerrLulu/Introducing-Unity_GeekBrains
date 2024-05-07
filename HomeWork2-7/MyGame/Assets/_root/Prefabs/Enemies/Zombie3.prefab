@@ -833,6 +833,7 @@ Transform:
   m_Children:
   - {fileID: 6201095571783922607}
   - {fileID: 6915863935060190749}
+  - {fileID: 6602960458262397923}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &5250309412342842399
@@ -849,7 +850,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.2
+  m_StoppingDistance: 0.5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -920,7 +921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hp: 100
-  _distanceHaunt: 7
+  _huntingDistance: 7
   _wayPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -933,6 +934,9 @@ MonoBehaviour:
   - {fileID: 0}
   _eyePosition: {fileID: 6602960458262397923}
   _protagonist: {fileID: 0}
+  _layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!95 &1089718651920286347
 Animator:
   serializedVersion: 5
@@ -1568,7 +1572,6 @@ Transform:
   - {fileID: 2765156980419097307}
   - {fileID: 5388540361055046446}
   - {fileID: 2470954448694881078}
-  - {fileID: 6602960458262397923}
   m_Father: {fileID: 492292907688170579}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7315767739161224810
@@ -2092,7 +2095,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6602960458262397923}
   m_Layer: 0
-  m_Name: YeysPoint
+  m_Name: EyePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2106,10 +2109,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9124122158212541896}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.49999994, y: 0.50000006, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: -0.05, y: 0.142, z: -0}
+  m_LocalRotation: {x: 0.000000014901161, y: 0.000000029802322, z: 0.00000016391277, w: 1}
+  m_LocalPosition: {x: 0, y: 1.676808, z: 0.12820053}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 956512202495264301}
+  m_Father: {fileID: 8429865231615740692}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

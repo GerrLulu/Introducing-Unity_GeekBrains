@@ -27,7 +27,6 @@ namespace Bullet
                 if (obj != null)
                 {
                     obj.Hit(_damage);
-                    Debug.Log(obj.ToString());
                     Destroy(gameObject);
                 }
             }

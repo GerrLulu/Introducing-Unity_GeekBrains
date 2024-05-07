@@ -5,7 +5,7 @@ namespace Doors
 {
     public class DoubleDoor : MonoBehaviour
     {
-        [SerializeField] private float _valueMovement = 1.2f;
+        [SerializeField] private float _valuePosition = 1.2f;
         [SerializeField] private Protagonist _protagonist;
         [SerializeField] private GameObject _leftDoor;
         [SerializeField] private GameObject _rightDoor;
@@ -22,9 +22,9 @@ namespace Doors
             _positionCloseRightDoor = _rightDoor.transform.localPosition;
 
             _positionOpenLeftDoor = new Vector3(_positionCloseLeftDoor.x, _positionCloseLeftDoor.y,
-                _positionCloseLeftDoor.z + _valueMovement);
+                _positionCloseLeftDoor.z + _valuePosition);
             _positionOpenRightDoor = new Vector3(_positionCloseRightDoor.x, _positionCloseRightDoor.y,
-                _positionCloseRightDoor.z - _valueMovement);
+                _positionCloseRightDoor.z - _valuePosition);
         }
 
         private void OnTriggerEnter(Collider other)
