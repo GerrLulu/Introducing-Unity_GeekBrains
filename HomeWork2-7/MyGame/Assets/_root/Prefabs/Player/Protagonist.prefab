@@ -725,8 +725,8 @@ GameObject:
   - component: {fileID: 971649438762375925}
   - component: {fileID: 971649438762375920}
   - component: {fileID: 971649438762375927}
-  - component: {fileID: 971649438762375926}
   - component: {fileID: 8561457903786164588}
+  - component: {fileID: 971649438762375926}
   - component: {fileID: 837248191677973519}
   m_Layer: 7
   m_Name: Protagonist
@@ -807,6 +807,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!95 &8561457903786164588
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971649438762375924}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 29031388fd7210648839f7a57a4d711d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &971649438762375926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -823,32 +844,11 @@ MonoBehaviour:
   _speed: 0.1
   _boost: 1.5
   _sensHorizontal: 7
-  _forseJump: 300
+  _forceJump: 300
   _bulletPrefub: {fileID: 4960412834280565574, guid: c14fc4ace74199e4ba44380cb7059d12, type: 3}
   _minePrefab: {fileID: 1646946700311360, guid: abbab26d658871944a20071c62234860, type: 3}
   _spawnBullet: {fileID: 971649439614379105}
   _spawnPointMine: {fileID: 971649437907476263}
---- !u!95 &8561457903786164588
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 971649438762375924}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 29031388fd7210648839f7a57a4d711d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!82 &837248191677973519
 AudioSource:
   m_ObjectHideFlags: 0
