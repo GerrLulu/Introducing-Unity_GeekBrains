@@ -5,7 +5,7 @@ namespace MineItem
 {
     public class Mine : MonoBehaviour
     {
-        [SerializeField] private float _damage = 30f;
+        [SerializeField] private int _damage = 30;
         [SerializeField] private float _lifeTime = 5f;
         [SerializeField] private float _radiusExplosion = 8f;
         [SerializeField] private float _force = 1000f;

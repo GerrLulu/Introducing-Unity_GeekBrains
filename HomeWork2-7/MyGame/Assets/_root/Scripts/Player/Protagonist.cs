@@ -7,29 +7,28 @@ namespace Player
 {
     public class Protagonist : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage, ForseHeal*/
     {
-        [SerializeField] private float _hp = 100f;
+        [SerializeField] private int _hp = 100;
         [SerializeField] private float _speed = 0.1f;
         [SerializeField] private float _boost = 1.5f;
         [SerializeField] private float _sensHorizontal = 7f;
         [SerializeField] private float _forceJump = 300f;
+        [SerializeField] private float _accelerationAnim = 0.1f;
+        [SerializeField] private float _decelerationAnim = 0.5f;
         [SerializeField] private GameObject _bulletPrefub;
         [SerializeField] private GameObject _minePrefab;
         [SerializeField] private Transform _spawnBullet;
         [SerializeField] private Transform _spawnPointMine;
 
-        private Vector3 _direction;
-        private Rigidbody _rb;
+        private int _velocityHash;
+        private float _velocity = 0.0f;
         private bool _isBoost;
         private bool _isGround;
         private bool _isHaveBlueCard;
+        private Vector3 _direction;
+        private Rigidbody _rb;
+        private Animator _animator;
 
         public bool IsHaveBlueCard { get { return _isHaveBlueCard; } }
-
-        //[SerializeField] private float _acceleration = 0.1f;
-        //[SerializeField] private float _deceleration = 0.5f;
-        //private int _velocityHash;
-
-        //Animator _animator;
 
         //[SerializeField] private Slider _sliderHP;
         //[SerializeField] private GameObject _panelHP;
@@ -53,9 +52,7 @@ namespace Player
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
-
-            //_animator = GetComponent<Animator>();
-            //_velocityHash = Animator.StringToHash("Velocity");
+            _animator = GetComponent<Animator>();
 
             //_paused = false;
 
@@ -66,6 +63,7 @@ namespace Player
         {
             _isGround = true;
             _isHaveBlueCard = false;
+            _velocityHash = Animator.StringToHash("Velocity");
 
             BlueCard.GiveBlueCard += GetBlueCard;
         }
@@ -86,23 +84,6 @@ namespace Player
 
             if (Input.GetButtonDown("Fire1"))
                 Shoot();
-
-            //if (_isBoost && _velocity <= 1.0f)
-            //    _velocity += Time.deltaTime * _acceleration;
-            //else if (!_isBoost && _velocity > 0.0f)
-            //    _velocity -= Time.deltaTime * _deceleration;
-            //else if (!_isBoost && _velocity < 0.0f)
-            //    _velocity = 0.0f;
-
-            //_animator.SetFloat(_velocityHash, _velocity);
-
-
-            //if (_direction == Vector3.zero)
-            //{
-            //    _animator.SetBool("IsMove", false);
-            //}
-            //else
-            //    _animator.SetBool("IsMove", true);
 
             //_sliderHP.value = _hp;
 
@@ -125,7 +106,7 @@ namespace Player
         {
             if (collision.collider.tag == "Ground")
             {
-                //_animator.SetBool("IsJump", false);
+                _animator.SetBool("IsJump", false);
                 _isGround = true;
             }
         }
@@ -135,10 +116,24 @@ namespace Player
         {
             float s;
 
+            if (_direction == Vector3.zero)
+                _animator.SetBool("IsMove", false);
+            else
+                _animator.SetBool("IsMove", true);
+
             if (_isBoost)
                 s = _boost * _speed;
             else
                 s = _speed;
+
+            if (_isBoost && _velocity <= 1.0f)
+                _velocity += Time.deltaTime * _accelerationAnim;
+            else if (!_isBoost && _velocity > 0.0f)
+                _velocity -= Time.deltaTime * _decelerationAnim;
+            else if (!_isBoost && _velocity < 0.0f)
+                _velocity = 0.0f;
+
+            _animator.SetFloat(_velocityHash, _velocity);
 
             transform.Translate(_direction.normalized * s);
         }
@@ -146,14 +141,14 @@ namespace Player
         private void Jump()
         {
             _rb.AddForce(new Vector3(0, _forceJump, 0), ForceMode.Impulse);
-            //_animator.SetBool("IsJump", true);
+            _animator.SetBool("IsJump", true);
             _isGround = false;
         }
 
         private void Shoot()
         {
             Instantiate(_bulletPrefub, _spawnBullet.position, _spawnBullet.rotation);
-            //_animator.SetTrigger("Shoot");
+            _animator.SetTrigger("Shoot");
         }
 
         private void SpawnMine()
@@ -161,15 +156,14 @@ namespace Player
             Instantiate(_minePrefab, _spawnPointMine.position, _spawnPointMine.rotation);
         }
 
-        public void Hit(float damage)
+        public void Hit(int damage)
         {
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");
-            //if (_hp <= 0)
-            //    _animator.SetTrigger("Die");
+            DieProtagonist(_hp);
         }
 
-        public void MineHit(float damage, float force, Vector3 positionMine)
+        public void MineHit(int damage, float force, Vector3 positionMine)
         {
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");
@@ -178,11 +172,7 @@ namespace Player
             Vector3 direction = positionImpulse - positionMine;
             _rb.AddForce(direction.normalized * force, ForceMode.Impulse);
 
-            //if (_hp <= 0)
-            //{
-            //    Destroy(gameObject);
-            //    //_animator.SetTrigger("Die");
-            //}
+            DieProtagonist(_hp);
         }
 
         private void GetBlueCard()
@@ -190,6 +180,15 @@ namespace Player
             _isHaveBlueCard = true;
 
             Debug.Log($"Get blue card: {_isHaveBlueCard}");
+        }
+
+        private void DieProtagonist(int hp)
+        {
+            if(hp <= 0)
+            {
+                _animator.SetTrigger("Die");
+                //Destroy(gameObject);
+            }
         }
 
         //public void TrapHit(float damage)

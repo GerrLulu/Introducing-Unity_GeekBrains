@@ -8,7 +8,7 @@ namespace Enemies
 {
     public class Enemy : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage*/
     {
-        [SerializeField] private float _hp = 100f;
+        [SerializeField] private int _hp = 100;
         [SerializeField] private float _huntingDistance = 7f;
         [SerializeField] private Transform[] _wayPoints;
         [SerializeField] private Transform _eyePosition;
@@ -72,7 +72,7 @@ namespace Enemies
             }
         }
 
-        public void Hit(float damage)
+        public void Hit(int damage)
         {
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");
@@ -80,7 +80,7 @@ namespace Enemies
             //    gameObject.SetActive(false);
         }
 
-        public void MineHit(float damage, float force, Vector3 positionMine)
+        public void MineHit(int damage, float force, Vector3 positionMine)
         {
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");

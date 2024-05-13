@@ -2,6 +2,6 @@ namespace Bullet
 {
     public interface IBulletDamage
     {
-        public void Hit(float damage);
+        public void Hit(int damage);
     }
 }

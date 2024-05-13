@@ -15,7 +15,7 @@ namespace Turret
         }
 
 
-        public void Hit(float damage)
+        public void Hit(int damage)
         {
             _turret.Hp = _turret.Hp - damage;
             Debug.Log($"{_turret.name} HP: {_turret.Hp}");
@@ -23,7 +23,7 @@ namespace Turret
             //    Destroy(gameObject);
         }
 
-        public void MineHit(float damage, float force, Vector3 position)
+        public void MineHit(int damage, float force, Vector3 position)
         {
             _turret.Hp = _turret.Hp - damage;
             Debug.Log($"{_turret.name} HP: {_turret.Hp}");

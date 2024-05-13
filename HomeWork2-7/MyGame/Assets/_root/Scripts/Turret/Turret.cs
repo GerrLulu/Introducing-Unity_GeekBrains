@@ -6,7 +6,7 @@ namespace Turret
 {
     public class Turret : MonoBehaviour
     {
-        [SerializeField] private float _hp = 100f;
+        [SerializeField] private int _hp = 100;
         [SerializeField] private float _rotationIdleSpeed;
         [SerializeField] private float _rotationAtackSpeed;
         [SerializeField] private float _timeReload = 5f;
@@ -25,7 +25,7 @@ namespace Turret
         private Ray _directionFire;
         private RaycastHit _hit;
 
-        public float Hp
+        public int Hp
         {
             get { return _hp; }
             set { _hp = value; }

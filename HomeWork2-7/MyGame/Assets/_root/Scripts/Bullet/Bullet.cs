@@ -4,8 +4,8 @@ namespace Bullet
 {
     public class Bullet : MonoBehaviour
     {
+        [SerializeField] private int _damage = 10;
         [SerializeField] private float _speed = 1f;
-        [SerializeField] private float _damage = 10f;
         [SerializeField] private float _lifeTime = 10f;
 
         //[SerializeField] private Light lightFlash;
