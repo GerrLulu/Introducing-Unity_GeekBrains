@@ -28,6 +28,11 @@ namespace Player
         private Rigidbody _rb;
         private Animator _animator;
 
+        public int Hp
+        {
+            get { return _hp; }
+            set { _hp = value; }
+        }
         public bool IsHaveBlueCard { get { return _isHaveBlueCard; } }
 
         //[SerializeField] private Slider _sliderHP;
@@ -53,9 +58,6 @@ namespace Player
         {
             _rb = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
-
-            //_paused = false;
-
             //_audioShoot = GetComponent<AudioSource>();
         }
 
@@ -63,6 +65,8 @@ namespace Player
         {
             _isGround = true;
             _isHaveBlueCard = false;
+            //_paused = false;
+
             _velocityHash = Animator.StringToHash("Velocity");
 
             BlueCard.GiveBlueCard += GetBlueCard;

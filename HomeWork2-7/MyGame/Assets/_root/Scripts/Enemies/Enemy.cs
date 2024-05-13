@@ -9,26 +9,26 @@ namespace Enemies
     public class Enemy : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage*/
     {
         [SerializeField] private int _hp = 100;
-        [SerializeField] private float _huntingDistance = 7f;
+        [SerializeField] private int _damage = 5;
+        [SerializeField] private float _huntingDistance = 5f;
+        [SerializeField] private float _atackDistance = 0.5f;
         [SerializeField] private Transform[] _wayPoints;
         [SerializeField] private Transform _eyePosition;
         [SerializeField] private Protagonist _protagonist;
         [SerializeField] private LayerMask _layerMask;
 
         private int m_CurrentWaypointIndex;
+        private Ray _rayToPlayer;
         private Rigidbody _rb;
         private NavMeshAgent _agent;
-        private Ray _rayToPlayer;
-
-        //Animator animator;
+        private Animator _animator;
 
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
             _agent = GetComponent<NavMeshAgent>();
-
-            //animator = GetComponent<Animator>();
+            _animator = GetComponent<Animator>();
         }
 
         private void Start()
@@ -45,19 +45,21 @@ namespace Enemies
             _rayToPlayer = new Ray(_eyePosition.position, direction);
             Physics.Raycast(_rayToPlayer, out hit);
 
-            
-
             if (hit.collider != null)
             {
                 if (hit.distance <= _huntingDistance)
                 {
                     _agent.SetDestination(_protagonist.transform.position);
                     Debug.DrawRay(_eyePosition.position, direction, Color.red);
+
+                    _animator.SetBool("IsRun", true);
                 }
                 else
                 {
                     Patrol();
                     Debug.DrawRay(_eyePosition.position, direction, Color.green);
+
+                    _animator.SetBool("IsRun", false);
                 }
             }
         }
@@ -76,8 +78,7 @@ namespace Enemies
         {
             _hp = _hp - damage;
             Debug.Log($"{gameObject.name} HP: {_hp}");
-            //if (_hp <= 0)
-            //    gameObject.SetActive(false);
+            DieEnemy(_hp);
         }
 
         public void MineHit(int damage, float force, Vector3 positionMine)
@@ -89,8 +90,21 @@ namespace Enemies
             Vector3 direction = positionImpulse - positionMine;
             _rb.AddForce(direction.normalized * force, ForceMode.Impulse);
 
-            //if (_hp <= 0)
-            //    Destroy(gameObject);
+            DieEnemy(_hp);
+        }
+
+        private void Atack(int damage)
+        {
+            _protagonist.Hp -= damage;
+        }
+
+        private void DieEnemy(int hp)
+        {
+            if (hp <= 0)
+            {
+                _animator.SetTrigger("Die");
+                //Destroy(gameObject);
+            }
         }
 
         //public void TrapHit(float damage)
