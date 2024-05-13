@@ -921,7 +921,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 2ef8e6599b7f9934e8ff0d64c5325a1f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -957,9 +957,6 @@ MonoBehaviour:
   - {fileID: 0}
   _eyePosition: {fileID: 6602960458262397923}
   _protagonist: {fileID: 0}
-  _layerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!205 &-2556472342054816683
 LODGroup:
   m_ObjectHideFlags: 0
