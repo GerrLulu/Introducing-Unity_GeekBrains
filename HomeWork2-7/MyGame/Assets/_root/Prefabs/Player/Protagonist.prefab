@@ -845,8 +845,6 @@ MonoBehaviour:
   _boost: 1.5
   _sensHorizontal: 7
   _forceJump: 300
-  _accelerationAnim: 0.1
-  _decelerationAnim: 0.5
   _bulletPrefub: {fileID: 4960412834280565574, guid: c14fc4ace74199e4ba44380cb7059d12, type: 3}
   _minePrefab: {fileID: 1646946700311360, guid: abbab26d658871944a20071c62234860, type: 3}
   _spawnBullet: {fileID: 971649439614379105}

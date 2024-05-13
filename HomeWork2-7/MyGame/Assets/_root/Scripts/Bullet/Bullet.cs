@@ -14,7 +14,7 @@ namespace Bullet
 
         void FixedUpdate()
         {
-            transform.Translate(transform.right * Time.deltaTime * _speed);
+            transform.position += transform.forward * _speed * Time.deltaTime;
             Destroy(gameObject, _lifeTime);
         }
 

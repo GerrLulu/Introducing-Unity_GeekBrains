@@ -51,15 +51,19 @@ namespace Enemies
                     _agent.SetDestination(_protagonist.transform.position);
                     Debug.DrawRay(_eyePosition.position, direction, Color.red);
 
-                    if (hit.distance <= _atackDistance)
-                        _animator.SetBool("IaAtack", true);
-                    else
-                        _animator.SetBool("IaAtack", false);
+                    _animator.SetBool("IsRun", true);
+
+                    //if (hit.distance <= _atackDistance)
+                    //    _animator.SetBool("IaAtack", true);
+                    //else
+                    //    _animator.SetBool("IaAtack", false);
                 }
                 else
                 {
                     Patrol();
                     Debug.DrawRay(_eyePosition.position, direction, Color.green);
+
+                    _animator.SetBool("IsRun", false);
                 }
             }
         }
@@ -72,7 +76,6 @@ namespace Enemies
                 m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % _wayPoints.Length;
                 _agent.SetDestination(_wayPoints[m_CurrentWaypointIndex].position);
             }
-            _animator.SetBool("IsPatrol", true);
         }
 
         public void Hit(int damage)
