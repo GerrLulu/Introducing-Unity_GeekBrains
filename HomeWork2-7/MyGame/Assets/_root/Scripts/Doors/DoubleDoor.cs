@@ -5,26 +5,14 @@ namespace Doors
 {
     public class DoubleDoor : MonoBehaviour
     {
-        [SerializeField] private float _valuePosition = 1.2f;
         [SerializeField] private Protagonist _protagonist;
-        [SerializeField] private GameObject _leftDoor;
-        [SerializeField] private GameObject _rightDoor;
 
-        Vector3 _positionCloseLeftDoor;
-        Vector3 _positionCloseRightDoor;
-        Vector3 _positionOpenLeftDoor;
-        Vector3 _positionOpenRightDoor;
+        private Animation _anim;
 
 
-        private void Start()
+        private void Awake()
         {
-            _positionCloseLeftDoor = _leftDoor.transform.localPosition;
-            _positionCloseRightDoor = _rightDoor.transform.localPosition;
-
-            _positionOpenLeftDoor = new Vector3(_positionCloseLeftDoor.x, _positionCloseLeftDoor.y,
-                _positionCloseLeftDoor.z + _valuePosition);
-            _positionOpenRightDoor = new Vector3(_positionCloseRightDoor.x, _positionCloseRightDoor.y,
-                _positionCloseRightDoor.z - _valuePosition);
+            _anim = GetComponent<Animation>();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -50,14 +38,12 @@ namespace Doors
 
         private void OpenDoor()
         {
-            _leftDoor.transform.localPosition = _positionOpenLeftDoor;
-            _rightDoor.transform.localPosition = _positionOpenRightDoor;
+            _anim.Play("DoubleDoorOpen");
         }
 
         private void CloseDoor()
         {
-            _leftDoor.transform.localPosition = _positionCloseLeftDoor;
-            _rightDoor.transform.localPosition = _positionCloseRightDoor;
+            _anim.Play("DoubleDoorClose");
         }
     }
 }

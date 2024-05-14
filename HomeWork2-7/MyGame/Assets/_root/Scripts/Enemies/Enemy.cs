@@ -9,12 +9,12 @@ namespace Enemies
     public class Enemy : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage*/
     {
         [SerializeField] private int _hp = 100;
-        [SerializeField] private int _damage = 5;
         [SerializeField] private float _huntingDistance = 5f;
-        [SerializeField] private float _atackDistance = 0.5f;
         [SerializeField] private Transform[] _wayPoints;
         [SerializeField] private Transform _eyePosition;
         [SerializeField] private Protagonist _protagonist;
+        //[SerializeField] private int _damage = 5;
+        //[SerializeField] private float _atackDistance = 0.5f;
 
         private int m_CurrentWaypointIndex;
         private Ray _rayToPlayer;

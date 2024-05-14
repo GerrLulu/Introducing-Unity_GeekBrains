@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4972167997025879799}
   - component: {fileID: 983518230607126234}
+  - component: {fileID: -4959423929333510037}
   - component: {fileID: 66023218557968580}
   m_Layer: 0
   m_Name: Sci Fi Gates
@@ -57,6 +58,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7, y: 3, z: 3.7}
   m_Center: {x: 0, y: 0, z: -0.9}
+--- !u!111 &-4959423929333510037
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972167997025983191}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 90c4f1ca76f17814597845566ee1198a, type: 2}
+  - {fileID: 7400000, guid: 17afbe13c43066e4985e452609b792ca, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!114 &66023218557968580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c49b8c37c71c4644bb5d6f994331bbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _valueMovement: 1.2
+  _valuePosition: 1.2
   _protagonist: {fileID: 0}
   _leftDoor: {fileID: 4972167997025983193}
   _rightDoor: {fileID: 4972167997025983199}
