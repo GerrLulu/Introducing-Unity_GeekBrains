@@ -2,6 +2,8 @@ using Bullet;
 using Doors;
 using MineItem;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace Player
 {
@@ -16,17 +18,25 @@ namespace Player
         [SerializeField] private float _decelerationAnim = 0.5f;
         [SerializeField] private GameObject _bulletPrefub;
         [SerializeField] private GameObject _minePrefab;
+        [SerializeField] private GameObject _blueCardImg;
+        [SerializeField] private GameObject _panelHP;
+        [SerializeField] private GameObject _panelMenuPause;
         [SerializeField] private Transform _spawnBullet;
         [SerializeField] private Transform _spawnPointMine;
+        [SerializeField] private Slider _sliderHP;
 
         private int _velocityHash;
         private float _velocity = 0.0f;
         private bool _isBoost;
         private bool _isGround;
         private bool _isHaveBlueCard;
+        private bool _isPaused;
         private Vector3 _direction;
         private Rigidbody _rb;
         private Animator _animator;
+        //private AudioSource _audioShoot;
+        
+        //public AudioMixerGroup Mixer;
 
         public int Hp
         {
@@ -34,15 +44,6 @@ namespace Player
             set { _hp = value; }
         }
         public bool IsHaveBlueCard { get { return _isHaveBlueCard; } }
-
-        //[SerializeField] private Slider _sliderHP;
-        //[SerializeField] private GameObject _panelHP;
-        //[SerializeField] private GameObject _panelMenuPause;
-        //private bool _paused;
-
-        //public AudioMixerGroup Mixer;
-
-        //[SerializeField] private AudioSource _audioShoot;
 
         /*private void OnGUI()
         {
@@ -65,7 +66,7 @@ namespace Player
         {
             _isGround = true;
             _isHaveBlueCard = false;
-            //_paused = false;
+            _isPaused = false;
 
             _velocityHash = Animator.StringToHash("Velocity");
 
@@ -89,16 +90,16 @@ namespace Player
             if (Input.GetButtonDown("Fire1"))
                 Shoot();
 
-            //_sliderHP.value = _hp;
+            _sliderHP.value = _hp;
 
-            //if (Input.GetButtonDown("Pause"))
-            //{
-            //    if (!_paused)
-            //    {
-            //        PausedGame();
-            //        _paused = true;
-            //    }
-            //}
+            if (Input.GetButtonDown("Pause"))
+            {
+                if (!_isPaused)
+                {
+                    PausedGame();
+                    _isPaused = true;
+                }
+            }
         }
 
         private void FixedUpdate()
@@ -182,6 +183,7 @@ namespace Player
         private void GetBlueCard()
         {
             _isHaveBlueCard = true;
+            _blueCardImg.SetActive(true);
 
             Debug.Log($"Get blue card: {_isHaveBlueCard}");
         }
@@ -191,9 +193,48 @@ namespace Player
             if(hp <= 0)
             {
                 _animator.SetTrigger("Die");
-                //Destroy(gameObject);
+                //Application.Quit();
             }
         }
+
+        public void PausedGame()
+        {
+            Time.timeScale = 0;
+            _panelHP.SetActive(false);
+            _blueCardImg.SetActive(false);
+            _panelMenuPause.SetActive(true);
+        }
+
+        public void BackGame()
+        {
+            Time.timeScale = 1;
+            _isPaused = false;
+            _panelHP.SetActive(true);
+            _panelMenuPause.SetActive(false);
+        }
+
+        public void RestartGame()
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        public void Quit()
+        {
+            SceneManager.LoadScene(0);
+        }
+
+        //public void ToggleMusic(bool enabled)
+        //{
+        //    if (enabled)
+        //        Mixer.audioMixer.SetFloat("MusicVolume", -80);
+        //    else
+        //        Mixer.audioMixer.SetFloat("MusicVolume", 0);
+        //}
+
+        //public void ChangeVolume(float volume)
+        //{
+        //    Mixer.audioMixer.SetFloat("MasterVolume", Mathf.Lerp(-80, 0, volume));
+        //}
 
         //public void TrapHit(float damage)
         //{
@@ -208,45 +249,6 @@ namespace Player
         //    if (this._hp > 100)
         //        this._hp = 100;
         //}
-
-        //public void RestartGame()
-        //{
-        //    SceneManager.LoadScene(1);
-        //}
-
-        //public void Quit()
-        //{
-        //    Application.Quit();
-        //}
-
-        //public void PausedGame()
-        //{
-        //    Time.timeScale = 0;
-        //    _panelHP.SetActive(false);
-        //    _panelMenuPause.SetActive(true);
-        //}
-
-        //public void BackGame()
-        //{
-        //    Time.timeScale = 1;
-        //    _paused = false;
-        //    _panelHP.SetActive(true);
-        //    _panelMenuPause.SetActive(false);
-        //}
-
-        //public void ToggleMusic(bool enabled)
-        //{
-        //    if(enabled)
-        //        Mixer.audioMixer.SetFloat("MusicVolume", -80);
-        //    else
-        //        Mixer.audioMixer.SetFloat("MusicVolume", 0);
-        //}
-
-        //public void ChangeVolume(float volume)
-        //{
-        //    Mixer.audioMixer.SetFloat("MasterVolume", Mathf.Lerp(-80, 0, volume));
-        //}
-
 
         private void OnDestroy()
         {
