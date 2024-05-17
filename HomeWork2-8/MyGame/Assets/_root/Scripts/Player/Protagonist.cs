@@ -1,6 +1,5 @@
 using Bullet;
 using Doors;
-using Menu;
 using MineItem;
 using System.Collections;
 using UnityEngine;
@@ -10,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Player
 {
-    public class Protagonist : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage, ForseHeal*/
+    public class Protagonist : MonoBehaviour, IMineExplosion, IBulletDamage
     {
         [SerializeField] private int _hp = 100;
         [SerializeField] private float _speed = 0.1f;
@@ -51,15 +50,6 @@ namespace Player
             set { _hp = value; }
         }
         public bool IsHaveBlueCard { get { return _isHaveBlueCard; } }
-
-        /*private void OnGUI()
-        {
-            GUI.BeginGroup(new Rect(10, 10, 400, 100));
-            GUI.Box(new Rect(10, 10, 400, 100), "Player Life");
-            GUI.TextField(new Rect(10, 20, 40, 30) ,"" + hp);
-            GUI.HorizontalSlider(new Rect(15, 70, 380, 40), hp, 0.0f ,100.0f);
-            GUI.EndClip();
-        }*/
 
 
         private void Awake()
@@ -214,7 +204,7 @@ namespace Player
             if(hp <= 0)
             {
                 _animator.SetTrigger("Die");
-                //Application.Quit();
+                Application.Quit();
             }
         }
 
@@ -272,20 +262,6 @@ namespace Player
         {
             _mixer.SetFloat(_mixerGroup.name, Mathf.Lerp(-80f, 20f, volume));
         }
-
-        //public void TrapHit(float damage)
-        //{
-        //    _hp = _hp - damage;
-        //    if (_hp <= 0)
-        //        _animator.SetTrigger("Die");
-        //}
-
-        //public void hpUp(float _hp)
-        //{
-        //    this._hp += _hp;
-        //    if (this._hp > 100)
-        //        this._hp = 100;
-        //}
 
 
         private void OnDestroy()

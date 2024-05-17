@@ -11,9 +11,6 @@ namespace Bullet
 
         private AudioSource _audioSource;
 
-        //[SerializeField] private Light lightFlash;
-        //[SerializeField] private float lightTime = 0.02f;
-
 
         private void Awake()
         {
@@ -43,18 +40,6 @@ namespace Bullet
             _audioSource.clip = clip;
             Debug.Log(_audioSource.clip);
             _audioSource.Play();
-
-            //StartCoroutine(LightFlash());
         }
-
-
-        //private IEnumerator LightFlash()
-        //{
-        //    lightFlash.GetComponent<Light>().enabled = true;
-
-        //    yield return new WaitForSeconds(lightTime);
-
-        //    lightFlash.GetComponent<Light>().enabled = false;
-        //}
     }
 }

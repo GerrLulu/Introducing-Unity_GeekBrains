@@ -6,15 +6,15 @@ using UnityEngine.AI;
 
 namespace Enemies
 {
-    public class Enemy : MonoBehaviour, IMineExplosion, IBulletDamage/*, TrapDamage*/
+    public class Enemy : MonoBehaviour, IMineExplosion, IBulletDamage
     {
         [SerializeField] private int _hp = 100;
         [SerializeField] private float _huntingDistance = 5f;
         [SerializeField] private Transform[] _wayPoints;
         [SerializeField] private Transform _eyePosition;
         [SerializeField] private Protagonist _protagonist;
-        //[SerializeField] private int _damage = 5;
-        //[SerializeField] private float _atackDistance = 0.5f;
+        [SerializeField] private int _damage = 5;
+        [SerializeField] private float _atackDistance = 0.5f;
 
         private int m_CurrentWaypointIndex;
         private Ray _rayToPlayer;
@@ -53,10 +53,10 @@ namespace Enemies
 
                     _animator.SetBool("IsRun", true);
 
-                    //if (hit.distance <= _atackDistance)
-                    //    _animator.SetBool("IaAtack", true);
-                    //else
-                    //    _animator.SetBool("IaAtack", false);
+                    if (hit.distance <= _atackDistance)
+                        _animator.SetBool("IaAtack", true);
+                    else
+                        _animator.SetBool("IaAtack", false);
                 }
                 else
                 {
@@ -107,15 +107,8 @@ namespace Enemies
             if (hp <= 0)
             {
                 _animator.SetTrigger("Die");
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
         }
-
-        //public void TrapHit(float damage)
-        //{
-        //    _hp = _hp - damage;
-        //    if (_hp <= 0)
-        //        gameObject.SetActive(false);
-        //}
     }
 }

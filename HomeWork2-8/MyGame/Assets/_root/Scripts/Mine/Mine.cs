@@ -12,8 +12,6 @@ namespace MineItem
         [SerializeField] private AudioClip[] _audioClips;
 
         private AudioSource _audioSours;
-        //private Transform target;
-        //[SerializeField] GameObject explosionPartical;
 
 
         private void Awake()
@@ -48,8 +46,6 @@ namespace MineItem
                 _audioSours.clip = clip;
                 Debug.Log(_audioSours.clip);
                 _audioSours.Play();
-
-                //Instantiate(explosionPartical, transform.position, transform.rotation);
 
                 Destroy(gameObject);
             }
