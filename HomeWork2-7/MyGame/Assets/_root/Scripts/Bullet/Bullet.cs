@@ -7,10 +7,18 @@ namespace Bullet
         [SerializeField] private int _damage = 10;
         [SerializeField] private float _speed = 1f;
         [SerializeField] private float _lifeTime = 10f;
+        [SerializeField] private AudioClip[] _audioClipsImpact;
+
+        private AudioSource _audioSource;
 
         //[SerializeField] private Light lightFlash;
         //[SerializeField] private float lightTime = 0.02f;
 
+
+        private void Awake()
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
 
         void FixedUpdate()
         {
@@ -31,8 +39,14 @@ namespace Bullet
                 }
             }
 
+            AudioClip clip = _audioClipsImpact[Random.Range(0, _audioClipsImpact.Length)];
+            _audioSource.clip = clip;
+            Debug.Log(_audioSource.clip);
+            _audioSource.Play();
+
             //StartCoroutine(LightFlash());
         }
+
 
         //private IEnumerator LightFlash()
         //{

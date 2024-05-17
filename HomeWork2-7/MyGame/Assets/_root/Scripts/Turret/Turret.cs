@@ -24,6 +24,7 @@ namespace Turret
         private Transform _target;
         private Ray _directionFire;
         private RaycastHit _hit;
+        private AudioSource _audioShoot;
 
         public int Hp
         {
@@ -31,6 +32,11 @@ namespace Turret
             set { _hp = value; }
         }
 
+
+        private void Awake()
+        {
+            _audioShoot = GetComponent<AudioSource>();
+        }
 
         private void Start()
         {
@@ -54,7 +60,6 @@ namespace Turret
                     Fire();
             }
         }
-
 
         private void FixedUpdate()
         {
@@ -96,6 +101,8 @@ namespace Turret
         private void Fire()
         {
             Instantiate(_bulletPrefab, _spawnBullets.position, _spawnBullets.rotation);
+
+            _audioShoot.Play();
             
             _isShoot = false;
         }

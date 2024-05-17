@@ -18,32 +18,13 @@ namespace Doors
         private void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player" && _protagonist.IsHaveBlueCard == true)
-            {
-                Debug.Log("Open door");
-
-                OpenDoor();
-            }
+                _anim.Play("DoubleDoorOpen");
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.tag == "Player" && _protagonist.IsHaveBlueCard == true)
-            {
-                Debug.Log("Close door");
-
-                CloseDoor();
-            }
-        }
-
-
-        private void OpenDoor()
-        {
-            _anim.Play("DoubleDoorOpen");
-        }
-
-        private void CloseDoor()
-        {
-            _anim.Play("DoubleDoorClose");
+                _anim.Play("DoubleDoorClose");
         }
     }
 }

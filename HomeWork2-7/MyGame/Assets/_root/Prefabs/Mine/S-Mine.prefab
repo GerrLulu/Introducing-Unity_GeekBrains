@@ -198,10 +198,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4335121845197070}
-  - component: {fileID: 3126336563906113725}
-  - component: {fileID: 5251705599346250178}
   - component: {fileID: -3075815687416816419}
+  - component: {fileID: 5251705599346250178}
   - component: {fileID: 1351556430002859087}
+  - component: {fileID: 3126336563906113725}
   m_Layer: 0
   m_Name: S-Mine
   m_TagString: Mine
@@ -226,41 +226,6 @@ Transform:
   - {fileID: 4651645070434962}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3126336563906113725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646946700311360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a9b202ca5285a04cad6164cd7a5c2a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _damage: 30
-  _lifeTime: 5
---- !u!65 &5251705599346250178
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1646946700311360}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.3, y: 0.3, z: 0.3}
-  m_Center: {x: 0, y: 0.16, z: 0}
 --- !u!54 &-3075815687416816419
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -288,6 +253,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!65 &5251705599346250178
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646946700311360}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0.16, z: 0}
 --- !u!82 &1351556430002859087
 AudioSource:
   m_ObjectHideFlags: 0
@@ -295,10 +281,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1646946700311360}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: fbc12ee2288487548ab7f6cd834d6d83, type: 2}
-  m_audioClip: {fileID: 8300000, guid: f51e493a8b9df094b868413e03a7d0e1, type: 3}
+  OutputAudioMixerGroup: {fileID: 24300002, guid: 0fcfb3727aa254847980a75e70723c22, type: 2}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -311,10 +297,10 @@ AudioSource:
   MinDistance: 0
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
-  BypassReverbZones: 0
+  BypassReverbZones: 1
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -384,3 +370,26 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &3126336563906113725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1646946700311360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a9b202ca5285a04cad6164cd7a5c2a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 30
+  _lifeTime: 5
+  _radiusExplosion: 8
+  _force: 1000
+  _audioClips:
+  - {fileID: 8300000, guid: dd0264e11df5d694fbe924abc3e80301, type: 3}
+  - {fileID: 8300000, guid: ca80aad89fdc47a4b91e62a663ebd1f0, type: 3}
+  - {fileID: 8300000, guid: 0579dc5d712b04b4291909f2dd3fd64e, type: 3}
+  - {fileID: 8300000, guid: 2cc6c6aebec9fd343aab9a4451b7e5e8, type: 3}
+  - {fileID: 8300000, guid: f51e493a8b9df094b868413e03a7d0e1, type: 3}
+  - {fileID: 8300000, guid: 37a8c4b99174fa742938356c88331c14, type: 3}

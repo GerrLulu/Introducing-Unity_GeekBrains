@@ -9,11 +9,17 @@ namespace MineItem
         [SerializeField] private float _lifeTime = 5f;
         [SerializeField] private float _radiusExplosion = 8f;
         [SerializeField] private float _force = 1000f;
+        [SerializeField] private AudioClip[] _audioClips;
 
+        private AudioSource _audioSours;
         //private Transform target;
-        //[SerializeField] private AudioSource audioExplosion;
         //[SerializeField] GameObject explosionPartical;
 
+
+        private void Awake()
+        {
+            _audioSours = GetComponent<AudioSource>();
+        }
 
         private void Start ()
         {
@@ -38,7 +44,11 @@ namespace MineItem
                     }
                 }
 
-                //audioExplosion.Play();
+                AudioClip clip = _audioClips[Random.Range(0, _audioClips.Length)];
+                _audioSours.clip = clip;
+                Debug.Log(_audioSours.clip);
+                _audioSours.Play();
+
                 //Instantiate(explosionPartical, transform.position, transform.rotation);
 
                 Destroy(gameObject);

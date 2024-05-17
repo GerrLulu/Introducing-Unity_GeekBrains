@@ -1,7 +1,10 @@
 using Bullet;
 using Doors;
+using Menu;
 using MineItem;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -24,19 +27,23 @@ namespace Player
         [SerializeField] private Transform _spawnBullet;
         [SerializeField] private Transform _spawnPointMine;
         [SerializeField] private Slider _sliderHP;
+        [SerializeField] private AudioSource _audioShoot;
+        [SerializeField] private AudioSource _audioWalk;
+        [SerializeField] private AudioSource _audioRun;
+        [SerializeField] private AudioMixer _mixer;
+        [SerializeField] private AudioMixerGroup _mixerGroup;
 
         private int _velocityHash;
         private float _velocity = 0.0f;
         private bool _isBoost;
         private bool _isGround;
         private bool _isHaveBlueCard;
-        private bool _isPaused;
+        private bool _isGamePaused;
+        private bool _isAudioMovePlay;
         private Vector3 _direction;
         private Rigidbody _rb;
         private Animator _animator;
-        //private AudioSource _audioShoot;
         
-        //public AudioMixerGroup Mixer;
 
         public int Hp
         {
@@ -59,18 +66,19 @@ namespace Player
         {
             _rb = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
-            //_audioShoot = GetComponent<AudioSource>();
         }
 
         private void Start()
         {
             _isGround = true;
             _isHaveBlueCard = false;
-            _isPaused = false;
+            _isGamePaused = false;
 
             _velocityHash = Animator.StringToHash("Velocity");
 
             BlueCard.GiveBlueCard += GetBlueCard;
+
+            StartCoroutine(AudioMove());
         }
 
         private void Update()
@@ -94,10 +102,10 @@ namespace Player
 
             if (Input.GetButtonDown("Pause"))
             {
-                if (!_isPaused)
+                if (!_isGamePaused)
                 {
                     PausedGame();
-                    _isPaused = true;
+                    _isGamePaused = true;
                 }
             }
         }
@@ -122,9 +130,15 @@ namespace Player
             float s;
 
             if (_direction == Vector3.zero)
+            {
                 _animator.SetBool("IsMove", false);
+                _audioWalk.Stop();
+                _audioRun.Stop();
+            }
             else
+            {
                 _animator.SetBool("IsMove", true);
+            }
 
             if (_isBoost)
                 s = _boost * _speed;
@@ -141,6 +155,16 @@ namespace Player
             _animator.SetFloat(_velocityHash, _velocity);
 
             transform.Translate(_direction.normalized * s);
+
+            if (_isAudioMovePlay)
+            {
+                if (_isBoost)
+                    _audioRun.Play();
+                else
+                    _audioWalk.Play();
+            }
+
+            _isAudioMovePlay = false;
         }
 
         private void Jump()
@@ -153,6 +177,7 @@ namespace Player
         private void Shoot()
         {
             Instantiate(_bulletPrefub, _spawnBullet.position, _spawnBullet.rotation);
+            _audioShoot.Play();
             _animator.SetTrigger("Shoot");
         }
 
@@ -164,14 +189,12 @@ namespace Player
         public void Hit(int damage)
         {
             _hp = _hp - damage;
-            Debug.Log($"{gameObject.name} HP: {_hp}");
             DieProtagonist(_hp);
         }
 
         public void MineHit(int damage, float force, Vector3 positionMine)
         {
             _hp = _hp - damage;
-            Debug.Log($"{gameObject.name} HP: {_hp}");
             
             var positionImpulse = new Vector3(transform.position.x, transform.position.y + 1f, transform.position.z);
             Vector3 direction = positionImpulse - positionMine;
@@ -184,8 +207,6 @@ namespace Player
         {
             _isHaveBlueCard = true;
             _blueCardImg.SetActive(true);
-
-            Debug.Log($"Get blue card: {_isHaveBlueCard}");
         }
 
         private void DieProtagonist(int hp)
@@ -208,7 +229,7 @@ namespace Player
         public void BackGame()
         {
             Time.timeScale = 1;
-            _isPaused = false;
+            _isGamePaused = false;
             _panelHP.SetActive(true);
             _panelMenuPause.SetActive(false);
         }
@@ -223,18 +244,34 @@ namespace Player
             SceneManager.LoadScene(0);
         }
 
-        //public void ToggleMusic(bool enabled)
-        //{
-        //    if (enabled)
-        //        Mixer.audioMixer.SetFloat("MusicVolume", -80);
-        //    else
-        //        Mixer.audioMixer.SetFloat("MusicVolume", 0);
-        //}
+        private IEnumerator AudioMove()
+        {
+            while (true)
+            {
+                if (_audioWalk.isPlaying || _audioRun.isPlaying)
+                {
+                    yield return null;
+                }
+                else
+                {
+                    _isAudioMovePlay = true;
+                    yield return null;
+                }
+            }
+        }
 
-        //public void ChangeVolume(float volume)
-        //{
-        //    Mixer.audioMixer.SetFloat("MasterVolume", Mathf.Lerp(-80, 0, volume));
-        //}
+        public void ToggleMusic(bool enabled)
+        {
+            if (enabled)
+                _mixer.SetFloat(_mixerGroup.name, -80f);
+            else
+                _mixer.SetFloat(_mixerGroup.name, 0f);
+        }
+
+        public void ChangeVolume(float volume)
+        {
+            _mixer.SetFloat(_mixerGroup.name, Mathf.Lerp(-80f, 20f, volume));
+        }
 
         //public void TrapHit(float damage)
         //{
@@ -249,6 +286,7 @@ namespace Player
         //    if (this._hp > 100)
         //        this._hp = 100;
         //}
+
 
         private void OnDestroy()
         {
